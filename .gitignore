@@ -1,4 +1,5 @@
 /lib/config.js
+/lib/tests.js
 # exclude everything
 /.data/*
 
