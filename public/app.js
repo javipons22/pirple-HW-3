@@ -69,7 +69,7 @@ app.client.request = function (headers, path, method, queryStringObject, payload
           var parsedResponse = JSON.parse(responseReturned);
           callback(statusCode, parsedResponse);
         } catch (e) {
-          callback(statusCode, false);
+          callback(statusCode, 'hola');
         }
 
       }
@@ -429,15 +429,16 @@ app.loadChecksListPage = function () {
     var queryStringObject = {
       'email': email
     };
-    app.client.request(undefined, 'api/users', 'GET', queryStringObject, undefined, function (statusCode, responsePayload) {
+    app.client.request(undefined, 'api/users', 'GET', queryStringObject, undefined, function (statusCode, response) {
       if (statusCode == 200) {
-
         // Determine how many checks the user has
-        var allChecks = typeof (responsePayload.checks) == 'object' && responsePayload.checks instanceof Array && responsePayload.checks.length > 0 ? responsePayload.checks : [];
-        if (allChecks.length > 0) {
+
+
+        var allOrders = typeof(response.orders) == 'object' && response.orders instanceof Array && response.orders.length > 0 ? response.orders : [];
+        if (allOrders.length > 0) {
 
           // Show each created check as a new row in the table
-          allChecks.forEach(function (checkId) {
+          allOrders.forEach(function (checkId) {
             // Get the data for the check
             var newQueryStringObject = {
               'id': checkId
@@ -454,19 +455,18 @@ app.loadChecksListPage = function () {
                 var td2 = tr.insertCell(2);
                 var td3 = tr.insertCell(3);
                 var td4 = tr.insertCell(4);
-                td0.innerHTML = responsePayload.method.toUpperCase();
-                td1.innerHTML = responsePayload.protocol + '://';
-                td2.innerHTML = responsePayload.url;
-                var state = typeof (responsePayload.state) == 'string' ? responsePayload.state : 'unknown';
-                td3.innerHTML = state;
-                td4.innerHTML = '<a href="/checks/edit?id=' + responsePayload.id + '">View / Edit / Delete</a>';
+                td0.innerHTML = responsePayload.orderId;
+                td1.innerHTML = responsePayload.products;
+                td2.innerHTML = responsePayload.orderTotal;
+                td3.innerHTML = responsePayload.paid;
+                
               } else {
                 console.log("Error trying to load check ID: ", checkId);
               }
             });
           });
 
-          if (allChecks.length < 5) {
+          if (allOrders.length < 5) {
             // Show the createCheck CTA
             document.getElementById("createCheckCTA").style.display = 'block';
           }
