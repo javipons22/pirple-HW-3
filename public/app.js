@@ -366,13 +366,13 @@ app.loadDataOnPage = function () {
   }
 
   // Logic for dashboard page
-  if (primaryClass == 'checksList') {
-    app.loadChecksListPage();
+  if (primaryClass == 'ordersList') {
+    app.loadOrdersListPage();
   }
 
   // Logic for check details page
-  if (primaryClass == 'checksEdit') {
-    app.loadChecksEditPage();
+  if (primaryClass == 'ordersEdit') {
+    app.loadOrderEditsPage();
   }
   if (primaryClass == 'ordersCreate') {
     app.loadOrdersCreatePage();
@@ -421,7 +421,7 @@ app.loadOrdersCreatePage = function () {
 }
 
 // Load the dashboard page specifically
-app.loadChecksListPage = function () {
+app.loadOrdersListPage = function () {
   // Get the email from the current token, or log the user out if none is there
   var email = typeof (app.config.sessionToken.email) == 'string' ? app.config.sessionToken.email : false;
   if (email) {
@@ -438,12 +438,12 @@ app.loadChecksListPage = function () {
         if (allOrders.length > 0) {
 
           // Show each created check as a new row in the table
-          allOrders.forEach(function (checkId) {
+          allOrders.forEach(function (orderId) {
             // Get the data for the check
             var newQueryStringObject = {
-              'id': checkId
+              'id': orderId
             };
-            app.client.request(undefined, 'api/checks', 'GET', newQueryStringObject, undefined, function (statusCode, responsePayload) {
+            app.client.request(undefined, 'api/orders', 'GET', newQueryStringObject, undefined, function (statusCode, responsePayload) {
               if (statusCode == 200) {
                 var checkData = responsePayload;
                 // Make the check data into a table row
@@ -461,7 +461,7 @@ app.loadChecksListPage = function () {
                 td3.innerHTML = responsePayload.paid;
                 
               } else {
-                console.log("Error trying to load check ID: ", checkId);
+                console.log("Error trying to load check ID: ", orderId);
               }
             });
           });
@@ -471,7 +471,7 @@ app.loadChecksListPage = function () {
             document.getElementById("createCheckCTA").style.display = 'block';
           }
 
-        } else {
+        }  else {
           // Show 'you have no checks' message
           document.getElementById("noChecksMessage").style.display = 'table-row';
 
@@ -491,7 +491,7 @@ app.loadChecksListPage = function () {
 
 
 // Load the checks edit page specifically
-app.loadChecksEditPage = function () {
+app.loadOrderEditsPage = function () {
   // Get the check id from the query string, if none is found then redirect back to dashboard
   var id = typeof (window.location.href.split('=')[1]) == 'string' && window.location.href.split('=')[1].length > 0 ? window.location.href.split('=')[1] : false;
   if (id) {
@@ -499,7 +499,7 @@ app.loadChecksEditPage = function () {
     var queryStringObject = {
       'id': id
     };
-    app.client.request(undefined, 'api/checks', 'GET', queryStringObject, undefined, function (statusCode, responsePayload) {
+    app.client.request(undefined, 'api/orders', 'GET', queryStringObject, undefined, function (statusCode, responsePayload) {
       if (statusCode == 200) {
 
         // Put the hidden id field into both forms
