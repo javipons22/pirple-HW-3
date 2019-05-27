@@ -237,7 +237,7 @@ app.formResponseProcessor = function (formId, requestPayload, responsePayload) {
       } else {
         // If successful, set the token and redirect the user
         app.setSessionToken(newResponsePayload);
-        window.location = '/';
+        window.location = '/orders/all';
       }
     });
   }
@@ -267,7 +267,7 @@ app.formResponseProcessor = function (formId, requestPayload, responsePayload) {
 
   // If the user just deleted a check, redirect them to the dashboard
   if (formId == 'checksEdit2') {
-    window.location = '/checks/all';
+    window.location = '/orders/all';
   }
 
 };
@@ -457,7 +457,7 @@ app.loadChecksListPage = function () {
                 var td4 = tr.insertCell(4);
                 td0.innerHTML = responsePayload.orderId;
                 td1.innerHTML = responsePayload.products;
-                td2.innerHTML = responsePayload.orderTotal;
+                td2.innerHTML = '$' + responsePayload.orderTotal;
                 td3.innerHTML = responsePayload.paid;
                 
               } else {
