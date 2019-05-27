@@ -454,7 +454,6 @@ app.loadOrdersListPage = function () {
                 var td1 = tr.insertCell(1);
                 var td2 = tr.insertCell(2);
                 var td3 = tr.insertCell(3);
-                var td4 = tr.insertCell(4);
                 td0.innerHTML = responsePayload.orderId;
                 td1.innerHTML = responsePayload.products;
                 td2.innerHTML = '$' + responsePayload.orderTotal;
