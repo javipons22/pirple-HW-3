@@ -1,4 +1,4 @@
-# Node js Master Class Homework assignment #2
+# Node js Master Class Homework assignment #3
 
 The app now includes a GUI for using it in a browser.
 
@@ -46,7 +46,7 @@ IMPORTANT!! : Dont forget to save the file as config.js !
 
 After the setup is done do the following:
 
-To execute app type in the command line:
+To execute app type in the command line (in the location of the project):
 ```
 node index.js
 ```
