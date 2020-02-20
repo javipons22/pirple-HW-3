@@ -1,5 +1,4 @@
 /lib/config.js
-/lib/tests.js
 # exclude everything
 /.data/*
 
@@ -10,6 +9,7 @@
 !/.data/tokens
 !/.data/menus
 !/.data/cart
+!/.data/orders
 !/.data/menus/*
 
 /.data/users/*
@@ -21,6 +21,9 @@
 
 /.data/cart/*
 !/.data/cart/.gitkeep
+
+/.data/orders/*
+!/.data/orders/.gitkeep
 
 
 
